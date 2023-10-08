@@ -11,7 +11,7 @@ from CameraService import CameraService
 save_path = 'recode'
 
 app = Flask(__name__)
-cap = CameraService(0)
+cap = CameraService(0, width=1920, height=1080)
 cap.start()
 
 PAGE = """\
@@ -21,7 +21,7 @@ PAGE = """\
 </head>
 <body>
 <center><h1>Raspberry Pi - Surveillance Camera</h1></center>
-<center><img src="stream.mjpg" width="640" height="480"></center>
+<center><img src="stream.mjpg" width="1920" height="1080"></center>
 </body>
 </html>
 """
@@ -75,4 +75,4 @@ def snapshot():
     return Response(content.getvalue(), mimetype='image/jpeg')
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    app.run(threaded=True, host="0.0.0.0", port="3125")
